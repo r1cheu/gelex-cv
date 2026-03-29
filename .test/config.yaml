@@ -1,0 +1,7 @@
+run_id: "test"
+kfold: 3
+bfile: ".test/geno"
+pheno: ".test/pheno.tsv"
+method: "RR"
+threads: 2
+seed: 42

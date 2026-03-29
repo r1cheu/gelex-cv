@@ -1,0 +1,12 @@
+[workspace]
+authors = ["r1cheu <chenrulei@cemps.ac.cn>"]
+channels = ["conda-forge", "bioconda"]
+name = "gelex-cv"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+snakemake = ">=9.17.2,<10"
+conda = ">=26.1.1,<27"

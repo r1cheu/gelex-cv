@@ -1,0 +1,86 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+type: object
+required:
+  - run_id
+  - kfold
+  - bfile
+  - pheno
+  - method
+
+properties:
+  run_id:
+    type: string
+    pattern: "^[a-zA-Z0-9_-]+$"
+  kfold:
+    type: integer
+    minimum: 2
+    maximum: 100
+  bfile:
+    type: string
+  pheno:
+    type: string
+  method:
+    type: string
+    enum: ["A", "B", "C", "R", "RR"]
+  pheno_col:
+    type: integer
+    default: 2
+  seed:
+    type: integer
+    default: 42
+  threads:
+    type: integer
+    minimum: 1
+    default: 4
+  iters:
+    type: integer
+    minimum: 100
+    default: 5000
+  burn_in:
+    type: integer
+    minimum: 0
+    default: 3000
+  thin:
+    type: integer
+    minimum: 1
+    default: 1
+  dom:
+    type: boolean
+    default: false
+  asym:
+    type: boolean
+    default: false
+  geno_method:
+    type: string
+    default: "OSH"
+  chunk_size:
+    type: integer
+    default: 10000
+  mmap:
+    type: boolean
+    default: false
+  qcovar:
+    type: ["string", "null"]
+  dcovar:
+    type: ["string", "null"]
+  estimate_pi:
+    type: boolean
+    default: false
+  pi:
+    type: ["array", "null"]
+    items:
+      type: number
+  scale:
+    type: ["array", "null"]
+    items:
+      type: number
+  dpi:
+    type: ["array", "null"]
+    items:
+      type: number
+  dscale:
+    type: ["array", "null"]
+    items:
+      type: number
+
+additionalProperties: false

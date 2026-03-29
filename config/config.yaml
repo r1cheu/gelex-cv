@@ -1,0 +1,29 @@
+run_id: "test_run"
+kfold: 5
+bfile: "/path/to/genotype"
+pheno: "/path/to/phenotype.tsv"
+method: "RR"
+
+# optional
+pheno_col: 2
+seed: 42
+threads: 4
+iters: 5000
+burn_in: 3000
+thin: 1
+dom: false
+asym: false
+geno_method: "OSH"
+chunk_size: 10000
+mmap: false
+
+# covariates (set to file path or leave null)
+qcovar: null
+dcovar: null
+
+# BayesB/C/R specific (leave null for defaults)
+estimate_pi: false
+pi: null
+scale: null
+dpi: null
+dscale: null

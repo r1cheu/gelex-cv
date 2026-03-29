@@ -1,0 +1,20 @@
+from snakemake.utils import validate
+
+
+configfile: "config/config.yaml"
+
+
+validate(config, schema="schemas/config.schema.yaml")
+
+
+include: "rules/common.smk"
+include: "rules/split.smk"
+include: "rules/plink.smk"
+include: "rules/fit.smk"
+include: "rules/predict.smk"
+include: "rules/evaluate.smk"
+
+
+rule all:
+    input:
+        results("evaluation.tsv"),
