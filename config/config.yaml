@@ -2,10 +2,10 @@ run_id: "test_run"
 kfold: 5
 bfile: "/path/to/genotype"
 pheno: "/path/to/phenotype.tsv"
-method: "RR"
+method: "R"
 
 # optional
-pheno_col: 2
+pheno_cols: [2]
 seed: 42
 threads: 4
 iters: 5000

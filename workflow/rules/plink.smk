@@ -1,8 +1,6 @@
 rule plink_subset:
     input:
-        bed=config["bfile"] + ".bed",
-        bim=config["bfile"] + ".bim",
-        fam=config["bfile"] + ".fam",
+        **bfile_inputs(config["bfile"]),
         keep=results("fold_{fold}/{split}_ids.txt"),
     output:
         bed=temp(results("fold_{fold}/{split}.bed")),

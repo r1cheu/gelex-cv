@@ -8,13 +8,24 @@ validate(config, schema="schemas/config.schema.yaml")
 
 
 include: "rules/common.smk"
-include: "rules/split.smk"
-include: "rules/plink.smk"
-include: "rules/fit.smk"
-include: "rules/predict.smk"
-include: "rules/evaluate.smk"
 
 
-rule all:
-    input:
-        results("evaluation.tsv"),
+if CV_MODE:
+
+    include: "rules/split.smk"
+    include: "rules/plink.smk"
+    include: "rules/fit.smk"
+    include: "rules/predict.smk"
+    include: "rules/evaluate.smk"
+
+    rule all:
+        input:
+            results("summary.tsv"),
+
+else:
+
+    include: "rules/full.smk"
+
+    rule all:
+        input:
+            expand(results("pheno_{pheno_col}/predictions.tsv"), pheno_col=PHENO_COLS),
