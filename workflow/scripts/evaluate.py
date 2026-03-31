@@ -2,6 +2,7 @@ import sys
 
 import numpy as np
 import pandas as pd
+from scipy.stats import spearmanr
 
 with open(snakemake.log[0], "w") as log:
     sys.stderr = log
@@ -26,11 +27,13 @@ with open(snakemake.log[0], "w") as log:
     y_pred = valid[pred_col].astype(float)
 
     cor = np.corrcoef(y_true, y_pred)[0, 1]
+    spearman_r, spearman_p = spearmanr(y_true, y_pred)
     mse = float(np.mean((y_true - y_pred) ** 2))
     n = len(valid)
 
     results = pd.DataFrame(
-        {"metric": ["pearson_r", "mse", "n_samples"], "value": [cor, mse, n]}
+        {"metric": ["pearson_r", "spearman_r", "mse", "n_samples"],
+         "value": [cor, spearman_r, mse, n]}
     )
     results.to_csv(snakemake.output.evaluation, sep="\t", index=False)
-    print(f"Correlation: {cor:.4f}, MSE: {mse:.4f}, N: {n}", file=log)
+    print(f"Pearson: {cor:.4f}, Spearman: {spearman_r:.4f}, MSE: {mse:.4f}, N: {n}", file=log)
