@@ -1,8 +1,14 @@
+import pandas as pd
+
 RUN = config["run_id"]
 K = config["kfold"]
 FOLDS = list(range(K))
-PHENO_COLS = [str(c) for c in config.get("pheno_cols", [2])]
 CV_MODE = K >= 2
+
+_pheno_header = pd.read_csv(config["pheno"], sep="\t", nrows=0).columns.tolist()
+_pheno_col_indices = config.get("pheno_cols", [2])
+PHENOTYPES = [_pheno_header[i] for i in _pheno_col_indices]
+PHENO_TO_COL = {_pheno_header[i]: i for i in _pheno_col_indices}
 
 
 def results(path=""):
@@ -86,4 +92,4 @@ def fit_params(bfile_fn, out_fn):
 wildcard_constraints:
     fold=r"\d+",
     split=r"train|test",
-    pheno_col=r"\d+",
+    phenotype=r"[^/]+",

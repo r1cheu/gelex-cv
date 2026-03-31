@@ -6,9 +6,9 @@ with open(snakemake.log[0], "w") as log:
     sys.stderr = log
 
     dfs = []
-    for path, pheno_col in zip(snakemake.input.evals, snakemake.params.pheno_cols):
+    for path, phenotype in zip(snakemake.input.evals, snakemake.params.phenotypes):
         df = pd.read_csv(path, sep="\t")
-        df["pheno_col"] = pheno_col
+        df["phenotype"] = phenotype
         dfs.append(df)
 
     summary = pd.concat(dfs, ignore_index=True)

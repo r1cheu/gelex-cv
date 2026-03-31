@@ -28,4 +28,4 @@ else:
 
     rule all:
         input:
-            expand(results("pheno_{pheno_col}/predictions.tsv"), pheno_col=PHENO_COLS),
+            expand(results("{phenotype}/predictions.tsv"), phenotype=PHENOTYPES),

@@ -7,11 +7,9 @@ from scipy.stats import spearmanr
 with open(snakemake.log[0], "w") as log:
     sys.stderr = log
 
-    pheno_col = snakemake.params.pheno_col
+    trait_col = snakemake.params.phenotype
 
     pred = pd.read_csv(snakemake.input.merged, sep="\t", dtype={"FID": str, "IID": str})
-    pheno_all_cols = pd.read_csv(snakemake.input.pheno, sep="\t", nrows=0).columns.tolist()
-    trait_col = pheno_all_cols[pheno_col]
     pheno = pd.read_csv(
         snakemake.input.pheno, sep="\t", usecols=["FID", "IID", trait_col],
         dtype={"FID": str, "IID": str},

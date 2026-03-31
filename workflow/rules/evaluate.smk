@@ -1,14 +1,14 @@
 rule merge_predictions:
     input:
         preds=lambda wc: expand(
-            results("pheno_{pheno_col}/fold_{fold}/predictions.tsv"),
+            results("{phenotype}/fold_{fold}/predictions.tsv"),
             fold=FOLDS,
-            pheno_col=wc.pheno_col,
+            phenotype=wc.phenotype,
         ),
     output:
-        merged=results("pheno_{pheno_col}/merged_predictions.tsv"),
+        merged=results("{phenotype}/merged_predictions.tsv"),
     log:
-        results("logs/merge_predictions_pheno_{pheno_col}.log"),
+        results("logs/merge_predictions_{phenotype}.log"),
     conda:
         "../envs/pandas.yaml"
     script:
@@ -17,14 +17,14 @@ rule merge_predictions:
 
 rule evaluate:
     input:
-        merged=results("pheno_{pheno_col}/merged_predictions.tsv"),
+        merged=results("{phenotype}/merged_predictions.tsv"),
         pheno=config["pheno"],
     output:
-        evaluation=results("pheno_{pheno_col}/evaluation.tsv"),
+        evaluation=results("{phenotype}/evaluation.tsv"),
     params:
-        pheno_col=lambda wc: int(wc.pheno_col),
+        phenotype=lambda wc: wc.phenotype,
     log:
-        results("logs/evaluate_pheno_{pheno_col}.log"),
+        results("logs/evaluate_{phenotype}.log"),
     conda:
         "../envs/pandas.yaml"
     script:
@@ -33,11 +33,11 @@ rule evaluate:
 
 rule summary:
     input:
-        evals=expand(results("pheno_{pheno_col}/evaluation.tsv"), pheno_col=PHENO_COLS),
+        evals=expand(results("{phenotype}/evaluation.tsv"), phenotype=PHENOTYPES),
     output:
         summary=results("summary.tsv"),
     params:
-        pheno_cols=PHENO_COLS,
+        phenotypes=PHENOTYPES,
     log:
         results("logs/summary.log"),
     conda:
