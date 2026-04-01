@@ -65,6 +65,12 @@ GELEX_FIT_CMD = (
     " {params.extra}"
 )
 
+GELEX_POST_CMD = (
+    "gelex post"
+    " --in {params.gfile_in}"
+    " --out {params.gfile_out}"
+)
+
 GELEX_PREDICT_CMD = (
     "gelex predict"
     " --bfile {params.bfile}"

@@ -17,6 +17,20 @@ rule full_fit:
         GELEX_FIT_CMD
 
 
+rule full_post:
+    input:
+        snp_eff=results("{phenotype}/{phenotype}.snp.eff"),
+        sbin=results("{phenotype}/{phenotype}.sbin"),
+        param=results("{phenotype}/{phenotype}.param"),
+    output:
+        log=results("{phenotype}/{phenotype}_post.log"),
+    params:
+        gfile_in=lambda wc: results(f"{wc.phenotype}/{wc.phenotype}"),
+        gfile_out=lambda wc: results(f"{wc.phenotype}/{wc.phenotype}_post"),
+    shell:
+        GELEX_POST_CMD
+
+
 rule full_predict:
     input:
         **bfile_inputs(config["bfile"]),

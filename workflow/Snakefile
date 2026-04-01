@@ -15,6 +15,7 @@ if CV_MODE:
     include: "rules/split.smk"
     include: "rules/plink.smk"
     include: "rules/fit.smk"
+    include: "rules/post.smk"
     include: "rules/predict.smk"
     include: "rules/evaluate.smk"
 
